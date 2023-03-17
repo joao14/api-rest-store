@@ -1,4 +1,7 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Microsoft.EntityFrameworkCore;
+using StoreApiRest.Data;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -14,6 +17,10 @@ builder.Services.AddCors(options =>
         app.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
     });
 });
+
+var connectionstring = builder.Configuration.GetConnectionString("PostgreSQLConnection");
+
+builder.Services.AddDbContext<ClientDb>(options => options.UseNpgsql(connectionstring));
 
 var app = builder.Build();
 

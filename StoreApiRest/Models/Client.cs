@@ -1,21 +1,20 @@
-﻿using System;
-namespace StoreApiRest.Models
+﻿namespace StoreApiRest.Models
 {
 	public class Client
 	{
-        public string id { get; set; }
-        public string nombre { get; set; }
-		public string edad { get; set; }
-        public string correo { get; set; }
+        public string Id { get; set; }
+        public string Nombre { get; set; }
+		public string Edad { get; set; }
+        public string Correo { get; set; }
 
         public Client() { }
 
-        public Client(string id, string nombre, string edad, string correo)
+        public Client(string Id, string Nombre, string Edad, string Correo)
         {
-            this.id = id;
-            this.nombre = nombre;
-            this.edad = edad;
-            this.correo = correo;
+            this.Id = Id;
+            this.Nombre = Nombre;
+            this.Edad = Edad;
+            this.Correo = Correo;
 
 
         }

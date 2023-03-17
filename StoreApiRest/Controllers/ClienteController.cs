@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using StoreApiRest.Models;
+using StoreApiRest.Repository;
 
 namespace StoreApiRest.Controllers
 {
@@ -8,31 +9,33 @@ namespace StoreApiRest.Controllers
     [Route("client")]
     public class ClienteController: ControllerBase
 	{
+        private readonly IClientRepository _clientRepository;
+
+        public ClienteController(IClientRepository clientRepository)
+        {
+            this._clientRepository = clientRepository;
+        }
+
 
         [HttpGet]
         [Route("list")]
-        public dynamic getClients()
+        public async Task<IActionResult> getClients()
         {
-            List<Client> clients = new List<Client>
-            {
-                new Client
-                {
-                    id= "1",
-                    correo="alexmerino67@gmail.com",
-                    edad="20",
-                    nombre="Alexander Merino"
-                },
+            var clients = await _clientRepository.GetAllClientsAsync();
 
-                new Client
-                {
-                    id= "2",
-                    correo="barcealex1014@hotmail.com",
-                    edad="25",
-                    nombre="Miguel Merino"
-                }
-            };
+            return Ok(clients);
+        }
 
-            return clients;
+
+
+        [HttpPost]
+        [Route("add")]
+        public dynamic addClient(Client client)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
+
+            return Ok();
         }
 
 
