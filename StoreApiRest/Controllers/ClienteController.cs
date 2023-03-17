@@ -35,12 +35,6 @@ namespace StoreApiRest.Controllers
             return clients;
         }
 
-        //[HttpPost]
-        //[Route("add")]
-        //public dynamic addClient()
-        //{
-
-        //}
 
     }
 }
