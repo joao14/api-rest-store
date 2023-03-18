@@ -1,10 +1,18 @@
-﻿namespace StoreApiRest.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace StoreApiRest.Models
 {
 	public class Client
 	{
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
+        [Required]
         public string Nombre { get; set; }
-		public string Edad { get; set; }
+        [Required]
+        public string Edad { get; set; }
+        [Required]
         public string Correo { get; set; }
 
         public Client() { }

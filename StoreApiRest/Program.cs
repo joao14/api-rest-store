@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StoreApiRest.Data;
+using StoreApiRest.Datos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,9 +20,15 @@ builder.Services.AddCors(options =>
 
 var connectionstring = builder.Configuration.GetConnectionString("PostgreSQLConnection");
 
-builder.Services.AddDbContext<ClientDb>(options => options.UseNpgsql(connectionstring));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionstring));
 
 var app = builder.Build();
+
+using (var scope= app.Services.CreateScope())
+{
+    var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    applicationDbContext.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
